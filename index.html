@@ -1,0 +1,71 @@
+
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1324">
+<title>Vitals Tracker</title>
+<link rel="stylesheet" href="styles.css">
+<script defer src="main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head><body>
+<header><h1>Vitals Tracker</h1></header>
+<main>
+  <section class="card">
+    <h3>Log Vitals</h3>
+    <div class="row3">
+      <div><label>Timestamp</label><input id="ts" type="datetime-local"></div>
+      <div><label>Systolic (mmHg)</label><input id="sys" type="number" inputmode="numeric" placeholder="e.g., 120"></div>
+      <div><label>Diastolic (mmHg)</label><input id="dia" type="number" inputmode="numeric" placeholder="e.g., 80"></div>
+    </div>
+    <div class="row3">
+      <div><label>Heart Rate (bpm)</label><input id="hr" type="number" inputmode="numeric" placeholder="e.g., 72"></div>
+      <div><label>Blood Sugar (mg/dL)</label><input id="sugar" type="number" inputmode="numeric" placeholder="e.g., 110"></div>
+      <div><label>SpO₂ (%)</label><input id="spo2" type="number" inputmode="numeric" placeholder="e.g., 98"></div>
+    </div>
+    <div class="row3">
+      <div><label>Temperature (°F)</label><input id="temp" type="number" step="0.1" inputmode="decimal" placeholder="e.g., 98.4"></div>
+      <div><label>Weight (lb)</label><input id="wt" type="number" step="0.1" inputmode="decimal" placeholder="e.g., 170"></div>
+      <div class="toggle"><input id="dialysis" type="checkbox"><label for="dialysis">Dialysis Day</label></div>
+    </div>
+    <div id="dialysisDetails" style="display:none" class="row">
+      <div><label>Before/After Dialysis</label><select id="dialysisBAD"><option value=""></option><option>Before</option><option>After</option></select></div>
+      <div><label>Body Position</label><select id="position"><option value=""></option><option>Seated</option><option>Standing</option><option>Lying Down</option></select></div>
+      <div><label>Cuff Arm</label><select id="arm"><option value=""></option><option>Left</option><option>Right</option></select></div>
+    </div>
+    <hr class="sep"><h4>Medications & Notes</h4>
+    <div class="row">
+      <div><label>Medications Taken</label><textarea id="meds" placeholder="E.g., lisinopril 10mg"></textarea></div>
+      <div><label>Symptoms / Notes</label><textarea id="sym" placeholder="E.g., dizziness, headache"></textarea></div>
+    </div>
+    <hr class="sep"><h4>Food Tracking</h4>
+    <div class="row">
+      <div><label>Meal Time</label><select id="meal"><option value=""></option><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
+      <div><label>Food Notes</label><input id="food" type="text" placeholder="E.g., chicken salad"></div>
+      <div><label>Portion Size</label><select id="portion"><option value=""></option><option>Small</option><option>Medium</option><option>Large</option></select></div>
+      <div><label>Post Meal Time</label><select id="postmeal"><option value=""></option><option>15 min</option><option>30 min</option><option>1 hr</option><option>2 hr</option></select></div>
+      <div><label>Symptoms After Eating</label><input id="symFood" type="text" placeholder="E.g., nausea"></div>
+    </div>
+    <div class="actions">
+      <button id="save" class="btn primary">Save Entry</button>
+      <label class="btn">Import CSV<input id="import" type="file" accept=".csv" style="display:none"></label>
+      <button id="export" class="btn accent">Export CSV</button>
+    </div>
+    <p class="small">Data is stored locally on this device (offline-capable). Export CSV to share or back up.</p>
+  </section>
+
+  <section class="card"><h3>Trends</h3>
+    <canvas id="bpChart"></canvas>
+    <canvas id="sugarChart"></canvas>
+    <canvas id="spo2Chart"></canvas>
+    <canvas id="weightChart"></canvas>
+  </section>
+
+  <section class="card">
+    <h3>Recent Entries</h3>
+    <table class="table"><thead>
+      <tr><th>Timestamp</th><th>Sys</th><th>Dia</th><th>HR</th><th>Sugar</th><th>SpO₂</th><th>Temp</th><th>Weight</th><th>Dialysis</th><th></th></tr>
+    </thead><tbody id="rows"></tbody></table>
+  </section>
+  <footer>Vitals Tracker — PWA. Add to Home Screen from the browser menu to install.</footer>
+</main>
+<script> if('serviceWorker' in navigator){ window.addEventListener('load', ()=> navigator.serviceWorker.register('./service-worker.js')); } </script>
+</body></html>
