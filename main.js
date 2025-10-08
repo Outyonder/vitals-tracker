@@ -84,7 +84,8 @@ function renderCharts(){
   makeLineChart("weightChart", labels, [{label:"Weight (lb)",data:weight}]);
 }
 document.addEventListener("DOMContentLoaded", ()=>{
-  $("#ts").value=new Date().toISOString().slice(0,16);
+  $("#ts").value = localDatetimeValue();
+
   $("#dialysis").addEventListener("change", e=> $("#dialysisDetails").style.display = e.target.checked ? "block":"none");
   $("#save").addEventListener("click", ()=>{ const row=getFormValues(); const rows=loadData(); rows.push(row); saveData(rows); clearForm(); renderTable(); renderCharts(); });
   $("#export").addEventListener("click", exportCSV);
