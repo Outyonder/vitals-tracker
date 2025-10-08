@@ -7,7 +7,10 @@ function saveData(rows){ localStorage.setItem(STORAGE_KEY, JSON.stringify(rows))
 const toNum = v => {const n=Number(v); return isNaN(n)?null:n;};
 function getFormValues(){ return {
   Entry_ID: uid(),
-  Timestamp: $("#ts").value || new Date().toISOString(),
+  Timestamp: Timestamp: $("#ts").value
+  ? new Date($("#ts").value).toISOString()
+  : new Date().toISOString(),
+
   Systolic_BP_mmHg: toNum($("#sys").value),
   Diastolic_BP_mmHg: toNum($("#dia").value),
   Heart_Rate_bpm: toNum($("#hr").value),
